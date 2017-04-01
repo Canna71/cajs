@@ -1,0 +1,17 @@
+{
+  "name": "cajs",
+  "version": "1.0.0",
+  "description": "CAS library for JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node js/test.js",
+    "grammar": "jacob -t grammar/tokens.jacoblex -l js/parsing/lexer.js jacob -g grammar/grammar.jacobgram -p js/parsing/parser.js"
+  },
+  "author": "Gabriele Cannata",
+  "license": "ISC",
+  "devDependencies": {
+    "bignumber.js": "^2.3.0",
+    "chai": "^3.5.0"
+  }
+}

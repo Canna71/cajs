@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="bundle.js" ></script>
+        <script src="libs/katex.min.js"></script>
+        <link href="styles/katex.min.css" type="text/css" rel="stylesheet">
+    </head>
+<body>
+<div>
+    <input type="text" id="txtInput" />
+</div>
+<div>
+
+    <span id="txtOutput2" text="" ></span>
+</div>
+<div>
+
+    <div id="txtOutput" text="" ></div>
+</div>
+
+    <script>
+        $(function () {
+            a = algebra;
+
+
+            var x = a('x');
+            var u = a("x^3-c*x^2-4")._toPolynomial(x);
+            var v = a("x^2+x+3")._toPolynomial(x);
+
+            var res = u.divideby(v);
+
+            console.log('quotient: '+res.quotient.toString());
+            console.log('remainder: '+res.remainder.toString());
+            console.log('remainder: '+res.remainder.expand().simplify().toString());
+
+/*
+var exp = a('(-3-(-1-c))');
+console.log(exp.toString());
+*/
+            $('#txtInput').keydown(function (e) {
+                if(e.keyCode == 13){
+                    var exp = a($('#txtInput').val());
+                    //$('#txtOutput').text(exp.toString());
+                    var output = exp.toLaTEX();
+                    $('#txtOutput2').text(exp.toString());
+                    katex.render(output, $('#txtOutput')[0]);
+
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>

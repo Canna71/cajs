@@ -1,0 +1,64 @@
+%left '='
+%left '+' '-'
+%left '*' '/'
+%right '^'
+%left '!'
+
+
+Expression = Expression '+' Expression  function (e1, _, e2) {
+                                                             return new imports.Addition(e1,e2);
+                                                         }
+            | Expression '-' Expression function (e1, _, e2) {
+                                                              return new imports.Subtraction(e1,e2);
+                                                          }
+            | Expression '*' Expression function (e1, _, e2) {
+                                                             return new imports.Product(e1,e2);
+                                                         }
+             | Expression '/' Expression function (e1, _, e2) {
+                                                               return new imports.Quotient(e1,e2);
+                                                           }
+             | '-' Expression function (_, e) {
+                                                 return new imports.Product(new imports.Integer(-1),e);
+                                                }
+             | '+' Expression function (_, e) {
+                                                 return new imports.Addition(new imports.Integer(0),e);
+                                                }
+             | Expression '^' Expression function (b, _, e) {
+                                                 return new imports.Power(b,e);
+                                                }
+
+          | Expression '!'  function (e) {
+                                              return new imports.Factorial(e);
+                                             }
+            | 'symbol' '(' ArgumentsList ')' function (name, _, args){
+
+                                                  return imports.FunctionFactory(name,...args);
+                                                //return new imports.Function(name,...(args.filter((_,i) => i%2==0)));
+
+                                            }
+
+             | 'integer'  function (i) {
+                                             return new imports.Integer(i);
+                                         }
+             | 'float'  function (i) {
+                                             return new imports.Float(i);
+                                         }                                         
+             | 'symbol'  function (id) {
+                                        return new imports.Symbol(id);
+                                    }
+             | '(' Expression ')'   function (_, e) {
+                                                         return e;
+                                                     }
+;
+            ArgumentsList =     function (args){
+                return [];
+            }
+
+            | Expression function (e) { return [e]; }
+
+            | ArgumentsList ',' Expression function (list,_, el){
+                                                        list.push(el);
+                                                           return list;
+                                                       }
+
+;

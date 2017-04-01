@@ -1,0 +1,25 @@
+
+%moduleName cajsLexer
+
+%%
+digits = [0-9]
+%%
+<>{digits}*\.{digits}+    {
+    //this.jjval = parseFloat(this.jjtext);
+    return 'float';
+}
+
+<>{digits}+   {
+    //this.jjval = parseInt(this.jjtext);
+    return 'integer';
+}
+
+
+<>\w+ { return 'symbol'; }
+
+<>\s* { }
+
+
+<>.   { return this.jjtext; }
+
+<>$   { console.log('EOF'); return 'EOF'; }
